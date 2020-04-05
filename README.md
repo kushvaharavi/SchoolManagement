@@ -1,2 +1,2 @@
 # SchoolManagement
-CRUD for the SchoolManagement project
+CRUD API for the SchoolManagement project using springboot
