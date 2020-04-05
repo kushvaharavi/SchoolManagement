@@ -29,24 +29,6 @@ public class StudentController {
     @Autowired
     private StudentRepository studentRepository;
 
-    @GetMapping("/students")
-    public List<Student> getAllStudents() {
-        return studentRepository.findAll();
-    }
-
-    @GetMapping("/students/{rollNo}")
-    public ResponseEntity<Student> getStudentById(
-    @PathVariable(value = "rollNo") Long rollNo) throws ResourceNotFoundException {
-    	Student student = studentRepository.findById(rollNo)
-        .orElseThrow(() -> new ResourceNotFoundException("Student not found on :: "+ rollNo));
-        return ResponseEntity.ok().body(student);
-    }
-
-    @PostMapping("/students")
-    public Student createStudent(@Valid @RequestBody Student student) {
-        return studentRepository.save(student);
-    }
-
     @PutMapping("/students/{rollNo}")
     public ResponseEntity<Student> updateStudent(
     @PathVariable(value = "rollNo") Long rollNo,
@@ -62,15 +44,4 @@ public class StudentController {
         return ResponseEntity.ok(updatedStudent);
    }
 
-   @DeleteMapping("/student/{rollNo}")
-   public Map<String, Boolean> deleteStudent(
-       @PathVariable(value = "rollNo") Long rollNo) throws Exception {
-	   Student student = studentRepository.findById(rollNo)
-          .orElseThrow(() -> new ResourceNotFoundException("Student not found on :: "+ rollNo));
-
-	   studentRepository.delete(student);
-       Map<String, Boolean> response = new HashMap<>();
-       response.put("deleted", Boolean.TRUE);
-       return response;
-   }
 }
